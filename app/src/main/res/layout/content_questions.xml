@@ -14,6 +14,7 @@
     tools:showIn="@layout/activity_questions">
 
     <TextView
+        android:id="@+id/questionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -27,12 +28,14 @@
         android:layout_gravity="bottom">
 
         <Button
+            android:id="@+id/falseAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:text="@string/falseButtonText"/>
 
         <Button
+            android:id="@+id/trueAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
