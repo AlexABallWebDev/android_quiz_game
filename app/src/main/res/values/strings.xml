@@ -8,4 +8,6 @@
     <string name="nextButtonText">Next</string>
     <string name="yourScore">Your score:</string>
     <string name="numQuestionsAnswered">Number of questions answered:</string>
+    <string name="wasAnsweredCorrect">This question has been answered correctly.</string>
+    <string name="wasAnsweredWrong">This question has been answered incorrectly.</string>
 </resources>

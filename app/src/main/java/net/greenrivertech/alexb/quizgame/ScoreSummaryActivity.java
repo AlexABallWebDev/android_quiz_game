@@ -1,3 +1,11 @@
+/*
+ * Author: Alex Ball
+ * Date: 04/19/2016
+ * Filename: QuestionsActivity.java
+ *
+ * ScoreSummary activity that displays the user's score and number of questions answered
+ * after a game.
+ */
 package net.greenrivertech.alexb.quizgame;
 
 import android.content.Intent;
@@ -6,6 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+/**
+ * ScoreSummary activity that displays the user's score and number of questions answered
+ * after a game.
+ *
+ * @author Alex Ball
+ */
 public class ScoreSummaryActivity extends AppCompatActivity {
 
     @Override
@@ -26,7 +40,7 @@ public class ScoreSummaryActivity extends AppCompatActivity {
         //get the numQuestionsView TextView
         TextView numQuestionsView = (TextView) findViewById(R.id.numQuestionsView);
 
-        //format score and numQuestions
+        //format score and numQuestions strings
         String scoreText = String.format("%s %d",
                 getResources().getText(R.string.yourScore), score);
         String numQuestionsText = String.format("%s %d",

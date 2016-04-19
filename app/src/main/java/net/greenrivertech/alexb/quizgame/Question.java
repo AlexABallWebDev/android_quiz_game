@@ -18,6 +18,8 @@ package net.greenrivertech.alexb.quizgame;
 public class Question {
     private String question;
     private boolean correctAnswer;
+    private boolean isAnswered;
+    private boolean answer;
 
     /**
      * Constructor that builds a new Question with the given question string and answer.
@@ -28,6 +30,8 @@ public class Question {
     public Question(String question, boolean correctAnswer) {
         this.question = question;
         this.correctAnswer = correctAnswer;
+        this.isAnswered = false;
+        this.answer = false;
     }
 
     /**
@@ -46,5 +50,53 @@ public class Question {
      */
     public boolean getCorrectAnswer() {
         return correctAnswer;
+    }
+
+    /**
+     * Returns true if this question has been answered, false otherwise.
+     *
+     * @return True if this question has been answered, false otherwise.
+     */
+    public boolean isAnswered() {
+        return isAnswered;
+    }
+
+    /**
+     * Answers this question with the given answer. If it is the correct answer, return true.
+     * Otherwise, return false.
+     *
+     * @param answer The answer to this question; correct if it matches the correctAnswer.
+     *
+     * @return True if the answer matches the correctAnswer, false otherwise.
+     */
+    public boolean answerQuestion(boolean answer) {
+        this.answer = answer;
+        isAnswered = true;
+        return getIsCorrectlyAnswered();
+    }
+
+    /**
+     * Returns the answer that was given to this question. Throws an IllegalStateException if
+     * called before answering this question.
+     *
+     * @return The answer that was given to this question.
+     *
+     * @throws IllegalStateException If called before answering this question.
+     */
+    public boolean getAnswer() {
+        if (!isAnswered) {
+            throw new IllegalStateException("Cannot get answer from unanswered question!");
+        }
+
+        return answer;
+    }
+
+    /**
+     * Returns true if the answer given to this question matches the correctAnswer.
+     *
+     * @return True if the answer given to this question matches the correctAnswer.
+     */
+    public boolean getIsCorrectlyAnswered() {
+        return answer == correctAnswer;
     }
 }

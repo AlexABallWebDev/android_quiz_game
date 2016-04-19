@@ -9,6 +9,7 @@
 package net.greenrivertech.alexb.quizgame;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents a quiz game in which a user has a score. They increase their score
@@ -26,7 +27,7 @@ public class QuizModel {
     private int score;
 
     //array representing the list of questions used for this game.
-    private Question[] questions;
+    private List<Question> questions;
 
     //the question number that the user is on (used for ordering the questions; user may be
     //on 1st question (0), or 3rd question (2),etc.)
@@ -42,9 +43,10 @@ public class QuizModel {
      * The full list of questions that the quiz game might ask the user.
      * A small number of questions are selected from this list for each game.
      */
-    public static ArrayList<Question> fullQuestionList;
+    public static List<Question> fullQuestionList;
 
     static {
+        //setup the full list of questions
         fullQuestionList = new ArrayList<>();
         fullQuestionList.add(new Question("Question 1: answer is true", true));
         fullQuestionList.add(new Question("Question 2: answer is false", false));
@@ -61,9 +63,9 @@ public class QuizModel {
         numQuestionsAnswered = 0;
 
         //fill the array with questions.
-        questions = new Question[numQuestions];
+        questions = new ArrayList<>();
         for(int i = 0; i < numQuestions; i++) {
-            questions[i] = fullQuestionList.get(i);
+            questions.add(fullQuestionList.get(i));
         }
     }
 
@@ -76,6 +78,11 @@ public class QuizModel {
         return score;
     }
 
+    /**
+     * Returns the number of questions that have been answered.
+     *
+     * @return The number of questions that have been answered.
+     */
     public int getNumQuestionsAnswered() {
         return numQuestionsAnswered;
     }
@@ -83,10 +90,37 @@ public class QuizModel {
     /**
      * Returns the current question.
      *
+     * @return The current question.
+     */
+    public Question getCurrentQuestion() {
+        return questions.get(gameQuestionNum);
+    }
+
+    /**
+     * Returns the current question.
+     *
      * @return The current question
      */
-    public String getCurrentQuestion() {
-        return questions[gameQuestionNum].getQuestion();
+    public String getCurrentQuestionText() {
+        return getCurrentQuestion().getQuestion();
+    }
+
+    /**
+     * Returns true if the current question has been answered, false otherwise.
+     *
+     * @return True if the current question has been answered, false otherwise.
+     */
+    public boolean isCurrentQuestionAnswered() {
+        return getCurrentQuestion().isAnswered();
+    }
+
+    /**
+     * Returns true if the current question has been correctly answered, false otherwise.
+     *
+     * @return True if the current question has been correctly answered, false otherwise.
+     */
+    public boolean isCurrentQuestionAnsweredCorrectly() {
+        return getCurrentQuestion().getIsCorrectlyAnswered();
     }
 
     /**
@@ -111,15 +145,27 @@ public class QuizModel {
         //assume user was incorrect.
         boolean result = false;
 
-        //if the answer to the question represented by currentQuestionNum matches
-        //the user's answer, then increase score and set result to true (user was correct).
-        if (answer == questions[gameQuestionNum].getCorrectAnswer()) {
-            result = true;
-            score++;
+        //if the user already answered the question, their score should not increase for
+        //answering correctly this time.
+        boolean noScore = false;
+
+        //the user answered a question; increment numQuestionsAnswered if this
+        //question was not already answered.
+        if (!getCurrentQuestion().isAnswered()) {
+            noScore = true;
+            numQuestionsAnswered++;
         }
 
-        //the user answered a question; increment numQuestionsAnswered.
-        numQuestionsAnswered++;
+        //if the answer to the question represented by currentQuestionNum matches
+        //the user's answer, then increase score and set result to true (user was correct).
+        if (getCurrentQuestion().answerQuestion(answer)) {
+            result = true;
+
+            //only incrase score if this is the first time the question has been answered.
+            if (noScore) {
+                score++;
+            }
+        }
 
         //advance to the next question.
         nextQuestion();
