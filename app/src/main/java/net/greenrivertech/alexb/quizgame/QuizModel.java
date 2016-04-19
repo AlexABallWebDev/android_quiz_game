@@ -1,7 +1,14 @@
+/*
+ * Author: Alex Ball
+ * Date: 04/19/2016
+ * Filename: QuizModel.java
+ *
+ * This class represents a quiz game in which a user has a score. They increase their score
+ * by correctly answering true/false questions.
+ */
 package net.greenrivertech.alexb.quizgame;
 
-import android.util.SparseArray;
-import android.util.SparseBooleanArray;
+import java.util.ArrayList;
 
 /**
  * This class represents a quiz game in which a user has a score. They increase their score
@@ -10,66 +17,54 @@ import android.util.SparseBooleanArray;
  * @author Alex Ball
  */
 public class QuizModel {
+    /**
+     * Default number of questions per quiz.
+     */
+    public static final int DEFAULT_NUM_QUESTIONS = 3;
+
     //the user's score; the number of correctly answered questions for this game.
     private int score;
 
-    //the number for the question that is currently on-screen
-    private int currentQuestionNum;
-
-    //map representing the list of questions used for this game. keys represent the question
-    //numbers, values represent whether they were correctly answered or not.
-    private int[] questions;
+    //array representing the list of questions used for this game.
+    private Question[] questions;
 
     //the question number that the user is on (used for ordering the questions; user may be
     //on 1st question (0), or 3rd question (2),etc.)
     private int gameQuestionNum;
 
+    //The number of questions that the user has answered in this game.
     private int numQuestionsAnswered;
 
-    /**
-     * The number of questions in this quiz
-     */
-    public static final int NUM_QUESTIONS = 3;
+    //The number of questions in this quiz
+    private int numQuestions;
 
     /**
      * The full list of questions that the quiz game might ask the user.
      * A small number of questions are selected from this list for each game.
      */
-    public static SparseArray<String> fullQuestionList;
-
-    /**
-     * The full list of answers that holds the correct answers for each question.
-     */
-    public static SparseBooleanArray answerList;
+    public static ArrayList<Question> fullQuestionList;
 
     static {
-        fullQuestionList = new SparseArray<>();
-        fullQuestionList.put(1, "Question 1: answer is true");
-        fullQuestionList.put(2, "Question 2: answer is false");
-        fullQuestionList.put(3, "Question 3: answer is true");
-
-        answerList = new SparseBooleanArray();
-        answerList.put(1, true);
-        answerList.put(2, false);
-        answerList.put(3, true);
+        fullQuestionList = new ArrayList<>();
+        fullQuestionList.add(new Question("Question 1: answer is true", true));
+        fullQuestionList.add(new Question("Question 2: answer is false", false));
+        fullQuestionList.add(new Question("Question 3: answer is true", true));
     }
 
     /**
      * Constructor that creates a new QuizModel with score 0 and gameQuestionNum 0 (first question).
      */
     public QuizModel() {
+        numQuestions = DEFAULT_NUM_QUESTIONS;
         score = 0;
         gameQuestionNum = 0;
         numQuestionsAnswered = 0;
 
-        //fill the map with questions.
-        questions = new int[NUM_QUESTIONS];
-        for(int i = 0; i < NUM_QUESTIONS; i++) {
-            questions[i] = i + 1;
+        //fill the array with questions.
+        questions = new Question[numQuestions];
+        for(int i = 0; i < numQuestions; i++) {
+            questions[i] = fullQuestionList.get(i);
         }
-
-        //set currentQuestion to the first question.
-        updateCurrentQuestion();
     }
 
     /**
@@ -81,13 +76,17 @@ public class QuizModel {
         return score;
     }
 
+    public int getNumQuestionsAnswered() {
+        return numQuestionsAnswered;
+    }
+
     /**
      * Returns the current question.
      *
      * @return The current question
      */
     public String getCurrentQuestion() {
-        return fullQuestionList.get(currentQuestionNum);
+        return questions[gameQuestionNum].getQuestion();
     }
 
     /**
@@ -114,7 +113,7 @@ public class QuizModel {
 
         //if the answer to the question represented by currentQuestionNum matches
         //the user's answer, then increase score and set result to true (user was correct).
-        if (answer == answerList.get(currentQuestionNum)) {
+        if (answer == questions[gameQuestionNum].getCorrectAnswer()) {
             result = true;
             score++;
         }
@@ -137,13 +136,12 @@ public class QuizModel {
      */
     public boolean nextQuestion() {
         //if this is the last question, do not advance, and return false.
-        if (gameQuestionNum >= NUM_QUESTIONS - 1) {
+        if (gameQuestionNum >= numQuestions - 1) {
             return false;
         }
 
         //if this is not the last question, advance to the next question and return true.
         gameQuestionNum++;
-        updateCurrentQuestion();
         return true;
     }
 
@@ -161,25 +159,16 @@ public class QuizModel {
 
         //if this is not the first question, go back to the previous question and return true.
         gameQuestionNum--;
-        updateCurrentQuestion();
         return true;
     }
 
     /**
-     * Updates the currentQuestion based on this game's questions list and
-     * gameQuestionNum (which question the user is currently on).
-     */
-    public void updateCurrentQuestion() {
-        currentQuestionNum = questions[gameQuestionNum];
-    }
-
-    /**
      * Returns true if the game is over. The game is considered over when the user has
-     * answered NUM_QUESTIONS questions (whether they are correct or not).
+     * answered numQuestions questions (whether they are correct or not).
      *
      * @return True if the user has answered enough questions, false otherwise.
      */
     public boolean isGameOver() {
-        return numQuestionsAnswered >= NUM_QUESTIONS;
+        return numQuestionsAnswered >= numQuestions;
     }
 }

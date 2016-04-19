@@ -6,4 +6,6 @@
     <string name="title_activity_score_summary">ScoreSummaryActivity</string>
     <string name="previousButtonText">Previous</string>
     <string name="nextButtonText">Next</string>
+    <string name="yourScore">Your score:</string>
+    <string name="numQuestionsAnswered">Number of questions answered:</string>
 </resources>

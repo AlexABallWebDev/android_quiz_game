@@ -24,6 +24,12 @@ public class QuestionsActivity extends AppCompatActivity {
      */
     public static final String MY_SCORE = "net.greenrivertech.alexb.quizgame.MY_SCORE";
 
+    /**
+     * Name for the number of questions the user answered for this game.
+     */
+    public static final String NUM_QUESTIONS_ANSWERED =
+            "net.greenrivertech.alexb.quizgame.NUM_QUESTIONS_ANSWERED";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +109,7 @@ public class QuestionsActivity extends AppCompatActivity {
     public void startScoreSummary() {
         Intent intent = new Intent(this, ScoreSummaryActivity.class);
         intent.putExtra(MY_SCORE, model.getScore());
+        intent.putExtra(NUM_QUESTIONS_ANSWERED, model.getNumQuestionsAnswered());
         startActivity(intent);
     }
 

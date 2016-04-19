@@ -18,13 +18,28 @@ public class ScoreSummaryActivity extends AppCompatActivity {
         //get the user's score from the intent
         Intent intent = getIntent();
         int score = intent.getIntExtra(QuestionsActivity.MY_SCORE, 0);
+        int numQuestionsAnswered = intent.getIntExtra(QuestionsActivity.NUM_QUESTIONS_ANSWERED, 0);
 
-        //get the scoreSummary TextView
-        TextView scoreSummary = (TextView) findViewById(R.id.scoreSummary);
+        //get the scoreView TextView
+        TextView scoreView = (TextView) findViewById(R.id.scoreView);
+
+        //get the numQuestionsView TextView
+        TextView numQuestionsView = (TextView) findViewById(R.id.numQuestionsView);
+
+        //format score and numQuestions
+        String scoreText = String.format("%s %d",
+                getResources().getText(R.string.yourScore), score);
+        String numQuestionsText = String.format("%s %d",
+                getResources().getText(R.string.numQuestionsAnswered), numQuestionsAnswered);
 
         //display the user's score
-        if (scoreSummary != null) {
-            scoreSummary.setText("Your score: " + score);
+        if (scoreView != null) {
+            scoreView.setText(scoreText);
+        }
+
+        //display the number of questions the user answered
+        if (numQuestionsView != null) {
+            numQuestionsView.setText(numQuestionsText);
         }
     }
 
