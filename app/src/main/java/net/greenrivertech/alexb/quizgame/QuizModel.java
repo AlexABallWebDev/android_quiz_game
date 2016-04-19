@@ -10,6 +10,7 @@ package net.greenrivertech.alexb.quizgame;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * This class represents a quiz game in which a user has a score. They increase their score
@@ -23,11 +24,11 @@ public class QuizModel {
      */
     public static final int DEFAULT_NUM_QUESTIONS = 3;
 
-    //the user's score; the number of correctly answered questions for this game.
-    private int score;
-
     //array representing the list of questions used for this game.
     private List<Question> questions;
+
+    //the user's score; the number of correctly answered questions for this game.
+    private int score;
 
     //the question number that the user is on (used for ordering the questions; user may be
     //on 1st question (0), or 3rd question (2),etc.)
@@ -51,6 +52,13 @@ public class QuizModel {
         fullQuestionList.add(new Question("Question 1: answer is true", true));
         fullQuestionList.add(new Question("Question 2: answer is false", false));
         fullQuestionList.add(new Question("Question 3: answer is true", true));
+        fullQuestionList.add(new Question("Question 4: answer is true", true));
+        fullQuestionList.add(new Question("Question 5: answer is true", true));
+        fullQuestionList.add(new Question("Question 6: answer is true", true));
+        fullQuestionList.add(new Question("Question 7: answer is true", true));
+        fullQuestionList.add(new Question("Question 8: answer is true", true));
+        fullQuestionList.add(new Question("Question 9: answer is true", true));
+        fullQuestionList.add(new Question("Question 10: answer is true", true));
     }
 
     /**
@@ -62,10 +70,26 @@ public class QuizModel {
         gameQuestionNum = 0;
         numQuestionsAnswered = 0;
 
+        //random object used for randomly selecting questions for this game.
+        Random rand = new Random();
+
+        //keep track of which questions have already been selected
+        ArrayList<Integer> chosenQuestions = new ArrayList<>();
+
         //fill the array with questions.
         questions = new ArrayList<>();
         for(int i = 0; i < numQuestions; i++) {
-            questions.add(fullQuestionList.get(i));
+            //get a new random number until we get a question that is not already
+            //in the game.
+            int questionNumber = rand.nextInt(fullQuestionList.size());
+            while (chosenQuestions.contains(questionNumber)) {
+                questionNumber = rand.nextInt(fullQuestionList.size());
+            }
+
+            //add the questionNumber to the list of chosen questions and add
+            //the question to the list of questions for this game.
+            chosenQuestions.add(questionNumber);
+            questions.add(fullQuestionList.get(questionNumber));
         }
     }
 
