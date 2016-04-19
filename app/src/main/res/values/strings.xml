@@ -4,4 +4,6 @@
     <string name="trueButtonText">True</string>
     <string name="falseButtonText">False</string>
     <string name="title_activity_score_summary">ScoreSummaryActivity</string>
+    <string name="previousButtonText">Previous</string>
+    <string name="nextButtonText">Next</string>
 </resources>

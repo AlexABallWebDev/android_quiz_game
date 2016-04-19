@@ -24,6 +24,8 @@ public class QuizModel {
     //on 1st question (0), or 3rd question (2),etc.)
     private int gameQuestionNum;
 
+    private int numQuestionsAnswered;
+
     /**
      * The number of questions in this quiz
      */
@@ -58,6 +60,7 @@ public class QuizModel {
     public QuizModel() {
         score = 0;
         gameQuestionNum = 0;
+        numQuestionsAnswered = 0;
 
         //fill the map with questions.
         questions = new int[NUM_QUESTIONS];
@@ -65,8 +68,8 @@ public class QuizModel {
             questions[i] = i + 1;
         }
 
-        //randomly pick a first question.
-        currentQuestionNum = 1;
+        //set currentQuestion to the first question.
+        updateCurrentQuestion();
     }
 
     /**
@@ -90,7 +93,7 @@ public class QuizModel {
     /**
      * Takes the user's answer and compares it to the correct answer. If they match, then
      * the user's score increments and this method returns true. Otherwise, this method
-     * returns false. The currentQuestionNum increments either way (move on to next question).
+     * returns false. Either way, move on to next question and increment numQuestionsAnswered.
      *
      * @param answer The user's answer.
      *
@@ -116,19 +119,67 @@ public class QuizModel {
             score++;
         }
 
-        //increase gameQuestionNum either way.
-        gameQuestionNum++;
+        //the user answered a question; increment numQuestionsAnswered.
+        numQuestionsAnswered++;
 
-        //if the game is not over, get the next question.
-        if (!isGameOver()) {
-            currentQuestionNum = questions[gameQuestionNum];
-        }
+        //advance to the next question.
+        nextQuestion();
 
         //return result (true if user was correct, false otherwise).
         return result;
     }
 
+    /**
+     * Advance to the next question without answering the current one.
+     * Returns true if successful, false otherwise.
+     *
+     * @return True if successful, false otherwise.
+     */
+    public boolean nextQuestion() {
+        //if this is the last question, do not advance, and return false.
+        if (gameQuestionNum >= NUM_QUESTIONS - 1) {
+            return false;
+        }
+
+        //if this is not the last question, advance to the next question and return true.
+        gameQuestionNum++;
+        updateCurrentQuestion();
+        return true;
+    }
+
+    /**
+     * Go back to the previous question without answering the current one.
+     * Returns true if successful, false otherwise.
+     *
+     * @return True if successful, false otherwise.
+     */
+    public boolean previousQuestion() {
+        //if this is the first question, do not go back, and return false.
+        if (gameQuestionNum <= 0) {
+            return false;
+        }
+
+        //if this is not the first question, go back to the previous question and return true.
+        gameQuestionNum--;
+        updateCurrentQuestion();
+        return true;
+    }
+
+    /**
+     * Updates the currentQuestion based on this game's questions list and
+     * gameQuestionNum (which question the user is currently on).
+     */
+    public void updateCurrentQuestion() {
+        currentQuestionNum = questions[gameQuestionNum];
+    }
+
+    /**
+     * Returns true if the game is over. The game is considered over when the user has
+     * answered NUM_QUESTIONS questions (whether they are correct or not).
+     *
+     * @return True if the user has answered enough questions, false otherwise.
+     */
     public boolean isGameOver() {
-        return gameQuestionNum >= NUM_QUESTIONS;
+        return numQuestionsAnswered >= NUM_QUESTIONS;
     }
 }
