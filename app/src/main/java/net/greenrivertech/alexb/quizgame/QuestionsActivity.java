@@ -1,5 +1,6 @@
 package net.greenrivertech.alexb.quizgame;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +18,11 @@ public class QuestionsActivity extends AppCompatActivity {
 
     //the model that represents the game (the game logic)
     private QuizModel model;
+
+    /**
+     * Name for the user's score, which is passed to ScoreSummaryActivity to be displayed.
+     */
+    public static final String MY_SCORE = "net.greenrivertech.alexb.quizgame.MY_SCORE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +66,13 @@ public class QuestionsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Answers the current question with the user's answer, displays a toast that tells the user
+     * if they were correct, then either displays the next question, or starts the score summary
+     * activity.
+     *
+     * @param answer The user's answer.
+     */
     public void updateGameDisplay(boolean answer) {
         //answer question and get whether the user was correct or not.
         boolean result = model.answerQuestion(answer);
@@ -75,7 +88,7 @@ public class QuestionsActivity extends AppCompatActivity {
         //otherwise, update questionText with the next question.
         if (model.isGameOver()) {
             //start score summary activity
-            popToast("Game over!");
+            startScoreSummary();
         } else {
             //get new question and update the questionText.
             if (questionText != null) {
@@ -84,6 +97,20 @@ public class QuestionsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Starts the ScoreSummaryActivity, displaying the user's score.
+     */
+    public void startScoreSummary() {
+        Intent intent = new Intent(this, ScoreSummaryActivity.class);
+        intent.putExtra(MY_SCORE, model.getScore());
+        startActivity(intent);
+    }
+
+    /**
+     * pop a toast message.
+     *
+     * @param text The text to be displayed.
+     */
     public void popToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
