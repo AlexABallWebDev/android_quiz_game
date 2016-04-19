@@ -1,5 +1,10 @@
 package net.greenrivertech.alexb.quizgame;
 
+import android.util.SparseBooleanArray;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This class represents a quiz game in which a user has a score. They increase their score
  * by correctly answering true/false questions.
@@ -10,8 +15,19 @@ public class QuizModel {
     //the user's score; the number of correctly answered questions for this game.
     private int score;
 
+    //total number of questions
+    private int totalNumQuestions;
+
     //the number for the question that is currently on-screen
     private int currentQuestionNum;
+
+    //map representing the list of questions used for this game. keys represent the question
+    //numbers, values represent whether they were correctly answered or not.
+    private SparseBooleanArray questions;
+
+    //the question number that the user is on (used for ordering the questions; user may be
+    //on 1st question (0), or 3rd question (2),etc.)
+    private int gameQuestionNum;
 
     /**
      * The number of questions in this quiz
@@ -19,10 +35,22 @@ public class QuizModel {
     public static final int NUM_QUESTIONS = 3;
 
     /**
-     * Constructor that creates a new QuizModel with score 0 and currentQuestionNum 1.
+     * Constructor that creates a new QuizModel with score 0 and gameQuestionNum 1.
      */
     public QuizModel() {
         score = 0;
+        gameQuestionNum = 1;
+
+        //retrieve the total number of questions
+        totalNumQuestions = 3;
+
+        //fill the map with questions.
+        questions = new SparseBooleanArray(NUM_QUESTIONS);
+        for(int i = 0; i < NUM_QUESTIONS; i++) {
+            questions.put(i + 1, false);
+        }
+
+        //randomly pick a first question.
         currentQuestionNum = 1;
     }
 
@@ -73,14 +101,14 @@ public class QuizModel {
             score++;
         }
 
-        //increase currentQuestionNum either way.
-        currentQuestionNum++;
+        //increase gameQuestionNum either way.
+        gameQuestionNum++;
 
         //return result (true if user was correct, false otherwise).
         return result;
     }
 
     public boolean isGameOver() {
-        return currentQuestionNum > NUM_QUESTIONS;
+        return gameQuestionNum > NUM_QUESTIONS;
     }
 }

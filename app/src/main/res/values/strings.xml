@@ -5,4 +5,6 @@
     <string name="falseButtonText">False</string>
     <string name="question1">testing.This is a question that is supposed to be of some length,
         but not too long.</string>
+    <string name="question2">test 2</string>
+    <string name="question3">test 3</string>
 </resources>

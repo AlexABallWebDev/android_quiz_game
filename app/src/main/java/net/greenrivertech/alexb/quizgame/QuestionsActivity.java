@@ -24,6 +24,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
         //display first question:
         //get the number for this question
+        model.getCurrentQuestionNum();
 
         //then retrieve the question using its number
 

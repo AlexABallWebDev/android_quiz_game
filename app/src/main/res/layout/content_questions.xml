@@ -19,7 +19,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="50dp"
-        android:text="@string/question1"/>
+        android:text=""/>
 
     <LinearLayout
         android:layout_width="match_parent"
