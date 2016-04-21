@@ -64,25 +64,34 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:minHeight="120dp"
         android:gravity="bottom">
 
-        <Button
+        <!--
+            Next and Previous button images were used from:
+            https://www.fotolia.com/id/7292365
+            Image:
+            https://t1.ftcdn.net/jpg/00/07/29/22/500_F_7292246_c7fdLpwl84Y1Yhe0fWycf6vQM2vkND6q.jpg
+        -->
+        <ImageButton
             android:id="@+id/previousQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="60dp"
-            android:text="@string/previousButtonText"/>
+            android:contentDescription="@string/previousButtonText"
+            android:src="@drawable/previous_button"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/nextQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="60dp"
-            android:text="@string/nextButtonText"/>
+            android:contentDescription="@string/nextButtonText"
+            android:src="@drawable/next_button"/>
 
     </RelativeLayout>
     <!-- End Button row 2 Next/Previous    -->

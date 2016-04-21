@@ -49,16 +49,16 @@ public class QuizModel {
     static {
         //setup the full list of questions
         fullQuestionList = new ArrayList<>();
-        fullQuestionList.add(new Question("Question 1: answer is true", true));
-        fullQuestionList.add(new Question("Question 2: answer is false", false));
-        fullQuestionList.add(new Question("Question 3: answer is true", true));
-        fullQuestionList.add(new Question("Question 4: answer is true", true));
-        fullQuestionList.add(new Question("Question 5: answer is true", true));
-        fullQuestionList.add(new Question("Question 6: answer is true", true));
-        fullQuestionList.add(new Question("Question 7: answer is true", true));
-        fullQuestionList.add(new Question("Question 8: answer is true", true));
-        fullQuestionList.add(new Question("Question 9: answer is true", true));
-        fullQuestionList.add(new Question("Question 10: answer is true", true));
+        fullQuestionList.add(new Question("Is water wet?", true));
+        fullQuestionList.add(new Question("Is fire hot?", true));
+        fullQuestionList.add(new Question("Is ice cold?", true));
+        fullQuestionList.add(new Question("Is 5 greater than 6?", false));
+        fullQuestionList.add(new Question("Can deer fly?", false));
+        fullQuestionList.add(new Question("Is this app working?", true));
+        fullQuestionList.add(new Question("Are puzzles puzzling?", true));
+        fullQuestionList.add(new Question("Can dolphins breathe air?", true));
+        fullQuestionList.add(new Question("Are potatoes fruits?", false));
+        fullQuestionList.add(new Question("Is false equal to true?", false));
     }
 
     /**

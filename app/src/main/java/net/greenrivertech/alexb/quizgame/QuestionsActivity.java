@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,8 +61,8 @@ public class QuestionsActivity extends AppCompatActivity {
         Button falseAnswer = (Button) findViewById(R.id.falseAnswer);
         Button trueAnswer = (Button) findViewById(R.id.trueAnswer);
 
-        Button previousQuestion = (Button) findViewById(R.id.previousQuestion);
-        Button nextQuestion = (Button) findViewById(R.id.nextQuestion);
+        ImageButton previousQuestion = (ImageButton) findViewById(R.id.previousQuestion);
+        ImageButton nextQuestion = (ImageButton) findViewById(R.id.nextQuestion);
 
         //create model
         model = new QuizModel();
@@ -185,6 +186,7 @@ public class QuestionsActivity extends AppCompatActivity {
      * Starts the ScoreSummaryActivity, displaying the user's score.
      */
     public void startScoreSummary() {
+        popToast("Game Over!");
         Intent intent = new Intent(this, ScoreSummaryActivity.class);
         intent.putExtra(MY_SCORE, model.getScore());
         intent.putExtra(NUM_QUESTIONS_ANSWERED, model.getNumQuestionsAnswered());
