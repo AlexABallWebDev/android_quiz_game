@@ -16,9 +16,16 @@ package net.greenrivertech.alexb.quizgame;
  * @author Alex Ball
  */
 public class Question {
+    //the question text (question statement)
     private String question;
+
+    //what is the correct answer to this question?
     private boolean correctAnswer;
+
+    //has this question been answered yet?
     private boolean isAnswered;
+
+    //if it was answered, was it answered with true, or false?
     private boolean answer;
 
     /**

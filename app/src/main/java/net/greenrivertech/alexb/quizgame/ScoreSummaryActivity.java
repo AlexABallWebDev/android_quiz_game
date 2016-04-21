@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 /**
  * ScoreSummary activity that displays the user's score and number of questions answered
  * after a game.
@@ -41,9 +43,9 @@ public class ScoreSummaryActivity extends AppCompatActivity {
         TextView numQuestionsView = (TextView) findViewById(R.id.numQuestionsView);
 
         //format score and numQuestions strings
-        String scoreText = String.format("%s %d",
+        String scoreText = String.format(Locale.US, "%s %d",
                 getResources().getText(R.string.yourScore), score);
-        String numQuestionsText = String.format("%s %d",
+        String numQuestionsText = String.format(Locale.US, "%s %d",
                 getResources().getText(R.string.numQuestionsAnswered), numQuestionsAnswered);
 
         //display the user's score
