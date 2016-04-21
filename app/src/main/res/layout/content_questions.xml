@@ -31,45 +31,59 @@
         android:layout_marginTop="10dp"
         android:text=""/>
 
-    <LinearLayout
+    <!-- Button row 1 True/False    -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
+        android:gravity="bottom"
+        android:minHeight="100dp">
 
         <Button
             android:id="@+id/falseAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:minWidth="120dp"
             android:text="@string/falseButtonText"/>
 
         <Button
             android:id="@+id/trueAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="@string/trueButtonText"/>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:minWidth="120dp"
+            android:text="@string/trueButtonText"
+            />
 
-    </LinearLayout>
+    </RelativeLayout>
+    <!-- End Button row 1 True/False    -->
 
-    <LinearLayout
+    <!-- Button row 2 Next/Previous    -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
+        android:layout_height="match_parent"
+        android:gravity="bottom">
 
         <Button
             android:id="@+id/previousQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="60dp"
             android:text="@string/previousButtonText"/>
 
         <Button
             android:id="@+id/nextQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="60dp"
             android:text="@string/nextButtonText"/>
 
-    </LinearLayout>
+    </RelativeLayout>
+    <!-- End Button row 2 Next/Previous    -->
 </LinearLayout>
