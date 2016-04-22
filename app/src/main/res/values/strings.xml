@@ -1,13 +1,25 @@
 <resources>
+    <!-- Title Bar Text -->
     <string name="app_name">Quiz Game</string>
+    <string name="title_activity_score_summary">Score Summary</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Button Text -->
     <string name="trueButtonText">True</string>
     <string name="falseButtonText">False</string>
-    <string name="title_activity_score_summary">ScoreSummaryActivity</string>
     <string name="previousButtonText">Previous</string>
     <string name="nextButtonText">Next</string>
-    <string name="yourScore">Your score:</string>
-    <string name="numQuestionsAnswered">Number of questions answered:</string>
+
+    <!-- Text for Answered Questions -->
     <string name="wasAnsweredCorrect">This question has been answered correctly.</string>
     <string name="wasAnsweredWrong">This question has been answered incorrectly.</string>
+
+    <!-- Score Summary Text -->
+    <string name="yourScore">Your score:</string>
+    <string name="numQuestionsAnswered">Number of questions answered:</string>
+
+    <!-- Toasts -->
+    <string name="correct">Correct!</string>
+    <string name="wrong">Wrong!</string>
+    <string name="gameOver">Game Over!</string>
 </resources>

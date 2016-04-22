@@ -139,9 +139,9 @@ public class QuestionsActivity extends AppCompatActivity {
 
         //if result is true, user was correct, otherwise they were wrong.
         if (result) {
-            popToast("Correct!");
+            popToast(getResources().getString(R.string.correct));
         } else {
-            popToast("Wrong!");
+            popToast(getResources().getString(R.string.wrong));
         }
 
         updateGameDisplay();
@@ -186,7 +186,10 @@ public class QuestionsActivity extends AppCompatActivity {
      * Starts the ScoreSummaryActivity, displaying the user's score.
      */
     public void startScoreSummary() {
-        popToast("Game Over!");
+        //display game over text
+        popToast(getResources().getString(R.string.gameOver));
+
+        //Create intent, put quiz answer information in it, and start the activity.
         Intent intent = new Intent(this, ScoreSummaryActivity.class);
         intent.putExtra(MY_SCORE, model.getScore());
         intent.putExtra(NUM_QUESTIONS_ANSWERED, model.getNumQuestionsAnswered());
