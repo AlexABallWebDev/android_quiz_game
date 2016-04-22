@@ -106,4 +106,13 @@ public class Question {
     public boolean getIsCorrectlyAnswered() {
         return answer == correctAnswer;
     }
+
+    /**
+     * Returns a copy of this question.
+     *
+     * @return A copy of this question.
+     */
+    public Question copyQuestion() {
+        return new Question(question, correctAnswer);
+    }
 }

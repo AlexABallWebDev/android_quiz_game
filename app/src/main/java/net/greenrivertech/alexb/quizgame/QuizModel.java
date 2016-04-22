@@ -44,7 +44,7 @@ public class QuizModel {
      * The full list of questions that the quiz game might ask the user.
      * A small number of questions are selected from this list for each game.
      */
-    public static List<Question> fullQuestionList;
+    public static final List<Question> fullQuestionList;
 
     static {
         //setup the full list of questions
@@ -89,7 +89,7 @@ public class QuizModel {
             //add the questionNumber to the list of chosen questions and add
             //the question to the list of questions for this game.
             chosenQuestions.add(questionNumber);
-            questions.add(fullQuestionList.get(questionNumber));
+            questions.add(fullQuestionList.get(questionNumber).copyQuestion());
         }
     }
 
