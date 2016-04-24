@@ -8,6 +8,9 @@
  */
 package net.greenrivertech.alexb.quizgame;
 
+import android.app.Fragment;
+import android.os.Bundle;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,7 +21,7 @@ import java.util.Random;
  *
  * @author Alex Ball
  */
-public class QuizModel {
+public class QuizModel extends Fragment {
     /**
      * Default number of questions per quiz.
      */
@@ -91,6 +94,19 @@ public class QuizModel {
             chosenQuestions.add(questionNumber);
             questions.add(fullQuestionList.get(questionNumber).copyQuestion());
         }
+    }
+
+    /**
+     * This onCreate method is needed for saving the QuizModel even when the
+     * activity that called it is destroyed and recreated. It uses setRetainInstance(true)
+     * to accomplish this.
+     */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // set the fragment to be retained (including when the device's orientation changes).
+        setRetainInstance(true);
     }
 
     /**

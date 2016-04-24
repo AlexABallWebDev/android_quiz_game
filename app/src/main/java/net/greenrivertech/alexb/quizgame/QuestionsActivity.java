@@ -7,6 +7,7 @@
  */
 package net.greenrivertech.alexb.quizgame;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -46,12 +47,34 @@ public class QuestionsActivity extends AppCompatActivity {
     public static final String NUM_QUESTIONS_ANSWERED =
             "net.greenrivertech.alexb.quizgame.NUM_QUESTIONS_ANSWERED";
 
+    /**
+     * Tag for the QuizModel fragment. Needed to findFragmentByTag when
+     * switching device orientation.
+     */
+    public static final String TAG_QUIZ_MODEL_FRAGMENT = "quiz_model_fragment";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //use QuizModel as a fragment to maintain state when changing orientation;
+        //first create a FragmentManager
+        FragmentManager fm = getFragmentManager();
+
+        //find the fragment using a tag (at this point, the return value may be null;
+        //this means that this is the first time the app has used onCreate (no
+        //orientation switch).
+        model = (QuizModel) fm.findFragmentByTag(TAG_QUIZ_MODEL_FRAGMENT);
+
+        // if the model was not found as a fragment (meaning the app has just been
+        // opened, no orientation switch) then create a new QuizModel.
+        if (model == null) {
+            model = new QuizModel();
+            fm.beginTransaction().add(model, TAG_QUIZ_MODEL_FRAGMENT).commit();
+        }
 
         //get views for displaying question text, if the question was answered or not,
         //false button, true button, and previous/next question buttons.
@@ -64,13 +87,8 @@ public class QuestionsActivity extends AppCompatActivity {
         ImageButton previousQuestion = (ImageButton) findViewById(R.id.previousQuestion);
         ImageButton nextQuestion = (ImageButton) findViewById(R.id.nextQuestion);
 
-        //create model
-        model = new QuizModel();
-
-        //display first question
-        if (questionText != null) {
-            questionText.setText(model.getCurrentQuestionText());
-        }
+        //display current question
+        updateGameDisplay();
 
         //listener for the false button
         if (falseAnswer != null) {
